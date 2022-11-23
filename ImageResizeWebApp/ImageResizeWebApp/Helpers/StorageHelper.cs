@@ -57,8 +57,11 @@ namespace ImageResizeWebApp.Helpers
             // Create a URI to the storage account
             Uri accountUri = new Uri("https://" + _storageConfig.AccountName + ".blob.core.windows.net/");
 
+            StorageSharedKeyCredential storageCredentials =
+                new StorageSharedKeyCredential(_storageConfig.AccountName, _storageConfig.AccountKey);
+
             // Create BlobServiceClient from the account URI
-            BlobServiceClient blobServiceClient = new BlobServiceClient(accountUri);
+            BlobServiceClient blobServiceClient = new BlobServiceClient(accountUri, storageCredentials);
 
             // Get reference to the container
             BlobContainerClient container = blobServiceClient.GetBlobContainerClient(_storageConfig.ThumbnailContainer);
